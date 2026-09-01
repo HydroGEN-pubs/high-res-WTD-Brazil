@@ -1,4 +1,4 @@
-# High Resolution Static Water Table Depth Estimation over Brazil
+# High Resolution Water Table Depth Estimation over Brazil
 
 This repo includes the workflow of [Fleury et al., 2026](https://iopscience.iop.org/article/10.1088/1748-9326/ae9bd7) to create Brazil's high resolution map of (static) water table depth (WTD). The scripts were developed to train a random forest model for estimating the long-term mean WTD across Brazil using available observations, and to generate a long-term mean WTD map at a ~90 m resolution for Brazil.<br>
 <br>
