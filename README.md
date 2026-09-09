@@ -11,17 +11,17 @@ For questions, please contact Maria Fleury (mfleury@princeton.edu).<br>
 ## Model Training & Deployment
 The following scripts used for model training and deployment can be found in the main folder:
 1. `1_RF_model_training.py`: The script used to train the random forest model for estimating long-term mean WTD over Brazil, evaluate it on a held-out test set, and compute permutation feature importance. It reads a prepared csv of well observations and input data. Links to the WTD and input datasets are provided below.
-2. `2_WTD_prediction.py`: The script used for generating the high resolution WTD map along with its associated uncertainty maps (25th percentile, 75th percentile, and interquartile range across the trees of the forest). Input datasets are too large to share. One can adapt this script to their own datasets and domains.
+2. `2_WTD_prediction.py`: The script used for generating the high resolution WTD map along with its associated uncertainty maps (25th percentile, 75th percentile, and interquartile range across the trees of the forest). 
 3. `2_WTD_prediction.slurm`: The Slurm job script used to run `2_WTD_prediction.py`. The number of parallel sections is read from the `SLURM_CPUS_PER_TASK` environment variable.
-4. `3_exporting_tif.py`: The script used for converting the resulting npy files from `2_WTD_prediction.py` to GeoTIFFs (EPSG:5641, SIRGAS 2000 / Brazil Polyconic).
-5. `4_shap_analysis.py`: The script used to compute SHAP values for the trained model over the test dataset, to interpret the contribution of each predictor.
+4. `3_exporting_tif.py`: The script used for converting the resulting npy files from `2_WTD_prediction.py` to GeoTIFFs.
+5. `4_shap_analysis.py`: The script used to compute SHAP values for the trained model over the test dataset, to interpret the contribution of each input variable.
 
 
 ## Input Data Sources
 
 The target variable is the mean water table depth (`mwtd`). This is comprised of measurements from the Groundwater Well Database for Brazil ([Uchôa et al., 2025](https://www.nature.com/articles/s41597-025-05843-7)), which recently standardized and quality assured all the WTD data available through the Geological Survey of Brazil (SGB). As well as long-term means calculated using data from SGB's Integrated Groundwater Monitoring Network Project ([RIMAS](https://rimasweb.sgb.gov.br/layout/))
 
-In addition to the well data, WTD is assumed to be 0 at 6,000 random locations along the river network (HydroRIVERS); these points are added to the training set only to improve the detection of saturated conditions near water bodies.
+In addition to the well data, WTD is assumed to be 0 at 6,000 random locations along the river network (HydroRIVERS); these points are added to the training set to improve the detection of saturated conditions near water bodies. Adding them did not impact known WTD prediction performance.
 
 The model uses ten predictors of long-term mean WTD:
 
